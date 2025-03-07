@@ -5,7 +5,6 @@
 ## Example: "ddev prepare"
 
 TMP_DIR=$(mktemp -d)
-echo "Dossier temporaire créé : $TMP_DIR"
 
 trap 'rm -rf "$TMP_DIR"' EXIT
 
