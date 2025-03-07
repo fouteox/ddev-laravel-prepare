@@ -36,7 +36,7 @@ if ! docker run --rm -it \
     -e PGID="$(id -g)" \
     -e RUN_AS_USER="$USER" \
     -e ANSIBLE_HOST_KEY_CHECKING=False \
-    fouteox/fadogen-ansible-tools:latest; then
+    fouteox/fadogen-ansible-tools; then
     echo "Error running ansible-playbook"
     exit 1
 fi
