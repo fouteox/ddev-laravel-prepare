@@ -8,10 +8,14 @@ TMP_DIR=$(mktemp -d)
 
 trap 'rm -rf "$TMP_DIR"' EXIT
 
+docker pull fouteox/fadogen-php-tools:latest
+
 if ! docker run --rm -it -v "$HOME"/.ssh:/root/.ssh:ro -v "$(pwd)":/app/work -v "$TMP_DIR":/app/work/server-config fouteox/fadogen-php-tools artisan server:prepare; then
     echo "Error running server:prepare"
     exit 1
 fi
+
+docker pull serversideup/github-cli:alpine
 
 if ! docker run --rm -it \
     -v "$HOME/.ssh:/ssh:ro" \
@@ -27,6 +31,8 @@ if ! docker run --rm -it \
     echo "Error configuring GitHub secrets"
     exit 1
 fi
+
+docker pull fouteox/fadogen-ansible-tools:latest
 
 if ! docker run --rm -it \
     -v "$HOME/.ssh:/ssh:ro" \
