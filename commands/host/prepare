@@ -27,8 +27,8 @@ if ! docker run --rm -it \
     -e "PGID=$(id -g)" \
     -e "RUN_AS_USER=$USER" \
     serversideup/github-cli:alpine \
-    /bin/sh -c "if [ ! -d .git ]; then echo 'Error: Current directory is not a Git repository'; exit 1; fi && gh auth login && (gh repo view &>/dev/null || gh repo create --source=. --push --private) && gh secret set SSH_KNOWN_HOSTS < server-config/.env.SSH_KNOWN_HOSTS && gh secret set SSH_PRIVATE_KEY < server-config/.env.SSH_PRIVATE_KEY && gh secret set SSH_REMOTE_HOSTNAME < server-config/.env.SSH_REMOTE_HOSTNAME && gh secret set SSH_USER < server-config/.env.SSH_USER && base64 .env.production | gh secret set ENV_FILE_BASE64"; then
-    echo "Error configuring GitHub secrets"
+    /bin/sh -c "if [ ! -d .git ]; then echo 'Error: Current directory is not a Git repository'; exit 1; fi && gh auth login && (gh repo view &>/dev/null || gh repo create --source=. --push --private) && gh secret set SSH_KNOWN_HOSTS < server-config/.env.SSH_KNOWN_HOSTS && gh secret set SSH_PRIVATE_KEY < server-config/.env.SSH_PRIVATE_KEY && gh secret set SSH_REMOTE_HOSTNAME < server-config/.env.SSH_REMOTE_HOSTNAME && gh secret set SSH_USER < server-config/.env.SSH_USER && gh variable set SYSTEM_ARCH < server-config/.env.SSH_ARCH && gh secret set SSH_UID < server-config/.env.SSH_UID && gh secret set SSH_GID < server-config/.env.SSH_GID && base64 .env.production | gh secret set ENV_FILE_BASE64"; then
+    echo "Error configuring GitHub secrets and variables"
     exit 1
 fi
 
